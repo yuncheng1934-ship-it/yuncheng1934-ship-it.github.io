@@ -169,6 +169,29 @@ function VisualPlaceholder({ code, className = '', index }: { code: string; clas
 
 function Home() {
   const heroRef = useRef<HTMLElement>(null)
+  useEffect(() => {
+    const hero = heroRef.current
+    const image = hero?.querySelector<HTMLImageElement>('.hero-character')
+    if (!hero || !image) return
+    const fitCharacter = () => {
+      if (window.innerWidth <= 900) {
+        hero.style.removeProperty('--hero-character-scale')
+        return
+      }
+      const ratio = image.naturalWidth && image.naturalHeight ? image.naturalWidth / image.naturalHeight : 1672 / 941
+      const paintedHeight = Math.min(image.clientHeight, image.clientWidth / ratio)
+      const preferredScale = window.innerWidth <= 1180 ? 1.25 : 1.43
+      // Reserve headroom for the fixed header, depth projection and pointer parallax.
+      if (paintedHeight) hero.style.setProperty('--hero-character-scale', String(Math.min(preferredScale, (hero.clientHeight - 104) / paintedHeight)))
+    }
+    const observer = new ResizeObserver(fitCharacter)
+    observer.observe(hero)
+    observer.observe(image)
+    image.addEventListener('load', fitCharacter)
+    window.addEventListener('resize', fitCharacter)
+    fitCharacter()
+    return () => { observer.disconnect(); image.removeEventListener('load', fitCharacter); window.removeEventListener('resize', fitCharacter) }
+  }, [])
 
   const handleHeroPointerMove = (event: ReactPointerEvent<HTMLElement>) => {
     const hero = heroRef.current
@@ -359,7 +382,7 @@ function CategoryPage({ slug }: { slug: string }) {
           <div><a className="back-button" href="#/"><span aria-hidden="true">←</span> 返回首页</a><p>DESIGN CATEGORY / {category.shortCode}</p><DetailHeading title={category.title} /></div>
           <div className="page-title-aside"><span>{category.en}</span><p>{category.description}</p></div>
         </section>
-        <section className="project-grid section-tight">
+        <section className={`project-grid section-tight project-grid-${slug}`}>
           {category.projects.map((project) => (
             <article className={`project-card ratio-${project.ratio}`} key={project.id}>
               {project.image ? <OptimizedImage className="project-image" src={project.image} alt={project.name} /> : <VisualPlaceholder code={category.shortCode} className="project-image" />}
