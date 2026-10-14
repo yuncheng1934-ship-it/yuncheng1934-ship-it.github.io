@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.env
+.env.*
+.git/
+.openai/
+.review/
+.workbuddy/
+.sites-runtime/
+src/generated.css
+*.log
+*.zip
+*.tar.gz
