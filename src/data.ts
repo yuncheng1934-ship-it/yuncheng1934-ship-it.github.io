@@ -90,7 +90,7 @@ designCategories.splice(1, 0, {
 })
 
 const homeCategoryPreviews: Record<string, string[]> = {
-  commercial: ['/works/commercial/commercial-17.webp', '/works/commercial/commercial-18.webp'],
+  commercial: ['/commercial-home-cover-wide-v1.webp', '/works/commercial/commercial-18.webp'],
   banner: ['/works/commercial/commercial-02.webp', '/works/commercial/commercial-03.webp'],
   'ip-vi': ['/works/ip-vi/ipvi-01.webp', '/works/ip-vi/ipvi-06.webp'],
   logo: ['/works/logo/logo-02.webp', '/works/typography/type-01.webp'],
