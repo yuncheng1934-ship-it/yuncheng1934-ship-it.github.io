@@ -2722,6 +2722,12 @@ a.contact-card:hover { box-shadow:none; transform:none; }
 .contact-card-head { align-items:center; }
 .contact-card-location { margin-top:6px; }
 .zoomable-image { cursor:zoom-in; }
+.category-cover { display:flex; align-items:center; justify-content:center; min-width:0; width:100%; border:0; background:none; cursor:pointer; }
+.category-cover img { display:block; width:auto; max-width:100%; height:auto; max-height:420px; border-radius:20px; object-fit:contain; }
+.category-cover:focus-visible { outline:2px solid #8cff4f; outline-offset:6px; border-radius:20px; }
+@media (max-width:620px) {
+  .category-cover img { max-height:360px; border-radius:14px; }
+}
 .video-cover-shade, .video-cover-index, .video-cover-format, .video-cover-title,
 .preview-video-index, .preview-video-format, .preview-video-label, .preview-video-play { pointer-events:none; }
 .zoomable-image:focus-visible { outline:2px solid #8cff4f; outline-offset:4px; }

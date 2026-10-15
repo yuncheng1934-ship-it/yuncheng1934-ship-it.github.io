@@ -72,7 +72,7 @@ function ImageViewer({ route }: { route: string }) {
         image.removeAttribute('tabindex')
         image.removeAttribute('role')
         image.removeAttribute('aria-label')
-        image.title = '点击查看视频详情'
+        image.title = image.closest('a')?.getAttribute('aria-label') || '点击查看作品详情'
         return
       }
       image.classList.add('zoomable-image')
@@ -305,25 +305,13 @@ function Home() {
                   <p>{item.en}</p><h3 translate="no"><FitText text={item.title} shrinkOnly /></h3><div>{item.description}</div>
                   <a className="outline-button" href={item.href}>查看全部</a>
                 </div>
-                <div className={`category-preview preview-${item.slug} ${item.slug === 'aigc-video' ? 'category-preview-video' : ''}`}>
+                <a className="category-cover" href={item.href} aria-label={`查看全部${item.title}作品`}>
                   {item.previews ? (
-                    <>
-                      <div className="preview-media preview-large">
-                        <OptimizedImage src={item.previews[0]} alt={`${item.title}作品 1`} />
-                        {item.slug === 'aigc-video' && <><span className="preview-video-index">01</span><span className="preview-video-format">9:16</span><span className="preview-video-label">AIGC VIDEO PROJECT</span><span className="preview-video-play">▶</span></>}
-                      </div>
-                      <div className="preview-media preview-small">
-                        <OptimizedImage src={item.previews[1]} alt={`${item.title}作品 2`} />
-                        {item.slug === 'aigc-video' && <><span className="preview-video-index">02</span><span className="preview-video-format">16:9</span><span className="preview-video-label">AIGC VIDEO PROJECT</span><span className="preview-video-play">▶</span></>}
-                      </div>
-                    </>
+                    <OptimizedImage src={item.previews[0]} alt={`${item.title}封面`} data-no-zoom="true" />
                   ) : (
-                    <>
-                      <VisualPlaceholder code={item.shortCode} className="preview-large" />
-                      <VisualPlaceholder code={item.shortCode} className="preview-small" />
-                    </>
+                    <VisualPlaceholder code={item.shortCode} />
                   )}
-                </div>
+                </a>
               </article>
             ))}
           </div>
