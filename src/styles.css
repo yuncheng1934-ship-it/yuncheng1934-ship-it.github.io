@@ -2725,8 +2725,17 @@ a.contact-card:hover { box-shadow:none; transform:none; }
 .category-cover { display:flex; align-items:center; justify-content:center; min-width:0; width:100%; border:0; background:none; cursor:pointer; }
 .category-cover img { display:block; width:auto; max-width:100%; height:auto; max-height:420px; border-radius:20px; object-fit:contain; }
 .category-cover:focus-visible { outline:2px solid #8cff4f; outline-offset:6px; border-radius:20px; }
+@media (max-width:900px) {
+  .category-cover img { width:100%; height:auto; aspect-ratio:16/9; max-height:none; object-fit:cover; }
+  .video-index .group-heading { grid-template-columns:minmax(0,1fr); align-items:start; gap:16px; }
+  .video-index .group-heading>div { min-width:0; width:100%; }
+  .video-index .group-heading h2 { font-size:clamp(28px,4.8vw,44px); line-height:1.2; }
+  .video-index .group-heading .group-eyebrow { display:block; margin-bottom:10px; line-height:1.5; }
+  .video-index .group-meta { display:grid; gap:8px; justify-items:start; }
+  .video-index .group-meta p { display:block; max-width:none; line-height:1.7; }
+}
 @media (max-width:620px) {
-  .category-cover img { max-height:360px; border-radius:14px; }
+  .category-cover img { border-radius:14px; }
 }
 .video-cover-shade, .video-cover-index, .video-cover-format, .video-cover-title,
 .preview-video-index, .preview-video-format, .preview-video-label, .preview-video-play { pointer-events:none; }
